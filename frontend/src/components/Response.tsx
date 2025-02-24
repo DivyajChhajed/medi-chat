@@ -1,14 +1,14 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm"; // ✅ Enables numbered & bullet lists
 
 const Response = ({ response }) => {
   if (!response) return null;
 
   return (
-    <div className="mt-6 p-4 bg-gray-100 shadow-md rounded-lg">
-      <h2 className="text-xl font-semibold mb-2">AI Response:</h2>
-      <div className="text-gray-700 prose">
-        <ReactMarkdown>
+    <div className="mt-6 p-5 bg-gray-900/90 shadow-xl rounded-xl border border-gray-700 backdrop-blur-md animate-fade-in">
+      <div className="text-gray-300 prose prose-invert max-w-none">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
           {response.response || response.message || response.error}
         </ReactMarkdown>
       </div>

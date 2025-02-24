@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { processImageQuery } from "../api";
+import { FaCloudUploadAlt } from "react-icons/fa"; // Upload Icon
 
 const ChatForm = ({ setResponse }) => {
   const { register, handleSubmit, reset } = useForm();
   const [loading, setLoading] = useState(false);
-  const [preview, setPreview] = useState(null); // 🔹 Store image preview
+  const [preview, setPreview] = useState(null);
 
-  // Function to handle file selection
+  // Handle file selection
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setPreview(URL.createObjectURL(file)); // 🔹 Create URL for preview
+      setPreview(URL.createObjectURL(file)); // Show preview
     } else {
-      setPreview(null); // 🔹 Reset preview if no file
+      setPreview(null);
     }
   };
 
@@ -28,51 +29,58 @@ const ChatForm = ({ setResponse }) => {
     setResponse(result);
     setLoading(false);
     reset();
-    setPreview(null); // 🔹 Reset preview after submit
+    setPreview(null);
   };
 
   return (
     <form
-      className="bg-white p-6 shadow-md rounded-lg"
+      className="bg-gray-900/90 p-6 shadow-xl rounded-xl border border-gray-700 backdrop-blur-md"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <label className="block text-gray-700 font-bold mb-2">
+      {/* File Upload */}
+      <label className="block text-gray-300 font-semibold mb-3">
         Upload Medical Image:
       </label>
 
-      <input
-        type="file"
-        accept="image/*"
-        {...register("file")}
-        className="w-full border p-2 mb-4"
-        onChange={handleFileChange} // 🔹 Update preview on file selection
-      />
+      <div className="relative flex items-center justify-center border-2 border-dashed border-gray-600 p-4 rounded-lg cursor-pointer hover:border-blue-500 transition">
+        <input
+          type="file"
+          accept="image/*"
+          {...register("file")}
+          className="absolute inset-0 opacity-0 cursor-pointer"
+          onChange={handleFileChange}
+        />
+        <FaCloudUploadAlt className="text-3xl text-gray-400 group-hover:text-blue-400 transition" />
+        <p className="ml-2 text-gray-400">Click to upload an image</p>
+      </div>
 
-      {/* 🔹 Image Preview Section */}
+      {/* Image Preview */}
       {preview && (
-        <div className="mb-4">
-          <p className="text-gray-700 font-semibold mb-2">Image Preview:</p>
+        <div className="mt-4">
+          <p className="text-gray-400 mb-2">Image Preview:</p>
           <img
             src={preview}
             alt="Uploaded Preview"
-            className="w-full h-auto rounded-md border"
+            className="w-full h-auto rounded-lg border border-gray-700"
           />
         </div>
       )}
 
-      <label className="block text-gray-700 font-bold mb-2">
+      {/* Query Input */}
+      <label className="block text-gray-300 font-semibold mt-4 mb-2">
         Enter Your Query:
       </label>
       <input
         type="text"
         placeholder="Describe your medical concern..."
         {...register("query")}
-        className="w-full border p-2 mb-4"
+        className="w-full bg-gray-800 text-white p-3 rounded-lg border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
       />
 
+      {/* Submit Button */}
       <button
         type="submit"
-        className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+        className="w-full mt-4 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-500 transition-all disabled:bg-gray-600"
         disabled={loading}
       >
         {loading ? "Processing..." : "Submit"}

@@ -37,7 +37,7 @@ if not GROQ_API_KEY:
 client = Groq(api_key=GROQ_API_KEY)
 
 # System prompt for medical responses
-SYSTEM_PROMPT = "Act as Doctor and highly knowledgeable medical expert. Your role is to provide accurate and helpful medical-related responses based on the given image and text query. If a query is not related to medical topics, politely refuse to answer."
+SYSTEM_PROMPT = "Act as Doctor and highly knowledgeable medical expert. Your role is to provide accurate and helpful medical-related responses based on the given image which depicts the patient text query. Consider the patient as the user typing the medical query. If a query is not related to medical topics, politely refuse to answer."
 
 def process_image(image_data: bytes, query: str):
     try:
@@ -68,7 +68,7 @@ def process_image(image_data: bytes, query: str):
             model="llama-3.2-90b-vision-preview",
             messages=messages,
             temperature=1,
-            max_completion_tokens=1024,
+            max_completion_tokens=500,
             top_p=1,
             stream=False,
             stop=None,
