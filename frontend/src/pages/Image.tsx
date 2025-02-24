@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { FaReact } from "react-icons/fa"; // Example icon from react-icons
 import ChatForm from "../components/ChatForm";
 import Response from "../components/Response";
+import { FaKitMedical } from "react-icons/fa6";
 
 const Home = () => {
   const [response, setResponse] = useState(null);
@@ -11,8 +11,8 @@ const Home = () => {
       {/* Header */}
       <header className="bg-gray-800 p-4 shadow-md flex justify-between items-center">
         <div className="text-2xl font-bold flex items-center">
-          <FaReact className="mr-2 text-blue-500" /> {/* React Icon */}
-          AI Chatbot
+          <FaKitMedical className="mr-2 text-blue-500" /> {/* React Icon */}
+          Medi-Chat
         </div>
         <div className="flex items-center space-x-4">
           <button className="text-gray-300 hover:text-white transition px-6">

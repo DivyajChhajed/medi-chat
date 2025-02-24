@@ -1,9 +1,11 @@
-import Home from "./pages/Image";
+// import Chat from "./pages/Chat.tsx";
+import Image from "./pages/Image.tsx";
 
 const App = () => {
   return (
     <div className="App">
-      <Home />
+      <Image />
+      {/* <Chat /> */}
     </div>
   );
 };
